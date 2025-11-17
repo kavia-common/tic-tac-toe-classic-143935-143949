@@ -8,6 +8,10 @@ import android.graphics.drawable.Drawable
  * RoundedRectDrawable draws a rounded rectangle with optional subtle shadow-like effect.
  * This avoids XML shape complexity while giving modern rounded cards/buttons.
  *
+ * Usage notes:
+ * - This class is in the same package as MainActivity for straightforward reference.
+ * - Shadow layer is subtle and should render fine across API levels; if needed, reduce blur for performance.
+ *
  * @param fillColor The interior color of the rounded rectangle.
  * @param cornerRadius The corner radius in pixels.
  */
@@ -27,7 +31,6 @@ class RoundedRectDrawable(
 
     override fun draw(canvas: Canvas) {
         rectF.set(bounds)
-        // Clip to avoid shadow clipping at edges
         canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, paint)
     }
 
@@ -41,7 +44,5 @@ class RoundedRectDrawable(
         invalidateSelf()
     }
 
-    override fun getOpacity(): Int {
-        return PixelFormat.TRANSLUCENT
-    }
+    override fun getOpacity(): Int = PixelFormat.TRANSLUCENT
 }

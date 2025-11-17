@@ -6,6 +6,11 @@ A sample Android application written in the Declarative Gradle DSL, using the pr
 This sample shows the definition of a multiproject Android application implemented using Kotlin 2.0.21 source code.
 The project is the result of reproducing the project produced by the `gradle init` command in Gradle 8.9 as an Android project.
 
+Environment used and recommended for reliable builds:
+- Gradle Wrapper: 8.8 (configured in gradle-wrapper.properties)
+- JDK: 17 (configured in settings.gradle.dcl)
+- Declarative Android ecosystem plugin: 0.1.40 (compatible with Gradle 8.8)
+
 To build the project without running, use:
 
 ```shell
@@ -15,7 +20,7 @@ To build the project without running, use:
 To run the application, first install it on a connected Android device using:
 
 ```shell
-  :app:installDebug
+  ./gradlew :app:installDebug
 ```
 
 Then search for "Sample Declarative Gradle Android App" and launch app to see a hello world message.

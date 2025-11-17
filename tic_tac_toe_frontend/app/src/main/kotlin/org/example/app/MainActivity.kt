@@ -93,7 +93,7 @@ class MainActivity : Activity() {
             rowCount = 3
             columnCount = 3
             useDefaultMargins = false
-            alignmentMode = GridLayout.ALIGN_MARGINS
+            // Avoid alignment mode differences across API levels; rely on margins set per cell
             setPadding(dp(4))
         }
 
@@ -120,9 +120,9 @@ class MainActivity : Activity() {
                 // place cells explicitly to satisfy GridLayout.spec parameters
                 val row = i / 3
                 val col = i % 3
-                // Use spec(index, span, weight) to avoid overload ambiguity and missing parameters
-                columnSpec = GridLayout.spec(col, 1, 1f)
-                rowSpec = GridLayout.spec(row, 1, 1f)
+                // Use spec(row or col, span) for explicit placement; omit weight to match available overloads
+                columnSpec = GridLayout.spec(col, 1)
+                rowSpec = GridLayout.spec(row, 1)
                 setMargins(dp(6), dp(6), dp(6), dp(6))
             }
             grid.addView(cell, params)
