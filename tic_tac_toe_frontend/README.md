@@ -8,13 +8,21 @@ The project is the result of reproducing the project produced by the `gradle ini
 
 Environment used and recommended for reliable builds:
 - Gradle Wrapper: 8.8 (configured in gradle-wrapper.properties)
-- JDK: 17 (configured in settings.gradle.dcl)
-- Declarative Android ecosystem plugin: 0.1.40 (compatible with Gradle 8.8)
+- Android Gradle Plugin: 8.5.2
+- Kotlin Gradle Plugin: 1.9.24
+- JDK: 17
+
+Build performance settings (already applied in gradle.properties):
+- org.gradle.caching=true
+- org.gradle.parallel=true
+- org.gradle.configureondemand=false
+- org.gradle.workers.max=2
+- org.gradle.jvmargs=-Xmx2g -Dkotlin.daemon.jvm.options=-Xmx1g
 
 To build the project without running, use:
 
 ```shell
-  ./gradlew build
+  ./gradlew clean :app:assembleDebug --no-daemon --stacktrace
 ```
 
 To run the application, first install it on a connected Android device using:

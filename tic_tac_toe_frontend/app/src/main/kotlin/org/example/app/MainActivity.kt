@@ -86,7 +86,7 @@ class MainActivity : Activity() {
             setBackgroundColor(colorSurface)
             // Simulate card-like surface with padding and rounded corners by background drawable replacement:
             background = RoundedRectDrawable(colorSurface, dp(12).toFloat())
-            setPadding(dp(8))
+            setPadding(dp(8), dp(8), dp(8), dp(8))
         }
 
         val grid = GridLayout(this).apply {
@@ -154,7 +154,7 @@ class MainActivity : Activity() {
         statusText = TextView(this).apply {
             textSize = 18f
             setTextColor(colorText)
-            setPadding(dp(8))
+            setPadding(dp(8), dp(8), dp(8), dp(8))
             gravity = Gravity.CENTER
         }
         root.addView(statusText, LinearLayout.LayoutParams(

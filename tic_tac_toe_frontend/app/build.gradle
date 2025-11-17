@@ -13,7 +13,28 @@ android {
         targetSdk 34
         versionCode 1
         versionName "0.1"
+        // Avoid running instrumentation on assemble tasks
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            // Speed up debug builds: no shrinking/minify/optimization
+            minifyEnabled false
+            shrinkResources false
+        }
+        release {
+            // Keep release standard; no code shrinker config provided here
+            minifyEnabled false
+            shrinkResources false
+        }
+    }
+
+    packagingOptions {
+        // Be explicit; reduces occasional duplicate files resolution stalls
+        resources {
+            excludes += [ "META-INF/LICENSE*", "META-INF/AL2.0", "META-INF/LGPL2.1" ]
+        }
     }
 
     buildFeatures {
