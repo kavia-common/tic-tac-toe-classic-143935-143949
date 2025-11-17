@@ -1,0 +1,4 @@
+<resources>
+    <!-- PUBLIC_INTERFACE -->
+    <string name="app_name">Tic Tac Toe</string>
+</resources>
