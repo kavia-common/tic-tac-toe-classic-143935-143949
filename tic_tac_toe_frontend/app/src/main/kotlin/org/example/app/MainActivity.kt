@@ -60,7 +60,7 @@ class MainActivity : Activity() {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
             )
-            setPadding(dp(16))
+            setPadding(dp(16), dp(16), dp(16), dp(16))
         }
 
         titleText = TextView(this).apply {
@@ -68,7 +68,7 @@ class MainActivity : Activity() {
             setTextColor(colorText)
             textSize = 28f
             typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-            setPadding(dp(8))
+            setPadding(dp(8), dp(8), dp(8), dp(8))
             gravity = Gravity.CENTER
             // Subtle elevation via shadow layer simulation for text prominence
             setShadowLayer(2f, 0f, 2f, Color.argb(40, 0, 0, 0))
@@ -94,7 +94,7 @@ class MainActivity : Activity() {
             columnCount = 3
             useDefaultMargins = false
             // Avoid alignment mode differences across API levels; rely on margins set per cell
-            setPadding(dp(4))
+            setPadding(dp(4), dp(4), dp(4), dp(4))
         }
 
         // Create 9 cell buttons
@@ -109,20 +109,26 @@ class MainActivity : Activity() {
                 minHeight = dp(64) // Accessibility: large enough touch target
                 minWidth = dp(64)
                 background = RoundedRectDrawable(Color.parseColor("#e5e7eb"), dp(10).toFloat()) // neutral cell background
-                setPadding(dp(8))
+                setPadding(dp(8), dp(8), dp(8), dp(8))
                 stateListAnimator = null // flatter look, rely on subtle background/shadow
                 setOnClickListener { onCellClicked(this, i) }
             }
 
-            val params = GridLayout.LayoutParams().apply {
+            // Build explicit specs and pass them to the LayoutParams constructor to avoid overload ambiguity
+            val row = i / 3
+            val col = i % 3
+            val params = GridLayout.LayoutParams(
+                GridLayout.spec(row, 1),
+                GridLayout.spec(col, 1)
+            ).apply {
+                // Explicit cell size; width 0 allows GridLayout to distribute evenly in container
                 width = 0
                 height = dp(90)
-                // place cells explicitly to satisfy GridLayout.spec parameters
-                val row = i / 3
-                val col = i % 3
-                // Use spec(row or col, span) for explicit placement; omit weight to match available overloads
-                columnSpec = GridLayout.spec(col, 1)
-                rowSpec = GridLayout.spec(row, 1)
+
+                // Optional center alignment within each grid cell
+                setGravity(Gravity.CENTER)
+
+                // Margins around each cell
                 setMargins(dp(6), dp(6), dp(6), dp(6))
             }
             grid.addView(cell, params)
